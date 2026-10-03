@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comic Reader - Long Strip Studio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="reader-header" id="header">
+    <div class="nav-left">
+      <a href="#" class="back-btn">← Katalog</a>
+      <h1 class="comic-title" id="comicTitle">Martial Peak</h1>
+    </div>
+    <div class="nav-right">
+      <select id="chapterSelect" class="chapter-dropdown">
+        <option value="1">Chapter 01 (RAW / ID)</option>
+        <option value="2">Chapter 02 (RAW / ID)</option>
+      </select>
+      <button id="openAdminBtn" class="admin-btn">⚙️ Tambah Raw/Link</button>
+    </div>
+  </header>
+
+  <!-- Container Reader Gambar Memanjang ke Bawah -->
+  <main class="reader-container">
+    <div id="imageWrapper" class="image-wrapper">
+      <!-- Gambar komik akan dimuat di sini via JS -->
+    </div>
+  </main>
+
+  <!-- Bottom Navigation Bar -->
+  <footer class="reader-footer" id="footer">
+    <button id="prevBtn" class="nav-btn">← Ch. Sebelumnya</button>
+    <span id="chapterIndicator" class="chapter-info">Chapter 1</span>
+    <button id="nextBtn" class="nav-btn">Ch. Selanjutnya →</button>
+  </footer>
+
+  <!-- Modal Admin / Input Link Gambar RAW -->
+  <div id="adminModal" class="modal">
+    <div class="modal-content">
+      <h2>Input Chapter / Gambar RAW</h2>
+      <p class="modal-sub">Tempel link URL gambar per baris (satu link gambar per baris):</p>
+      
+      <label for="inputTitle">Judul Komik:</label>
+      <input type="text" id="inputTitle" value="Martial Peak">
+
+      <label for="inputChapter">Nomor Chapter:</label>
+      <input type="number" id="inputChapter" value="1">
+
+      <label for="inputUrls">Daftar URL Gambar RAW:</label>
+      <textarea id="inputUrls" rows="8" placeholder="https://example.com/page1.jpg&#10;https://example.com/page2.jpg&#10;https://example.com/page3.jpg"></textarea>
+
+      <div class="modal-actions">
+        <button id="saveChapterBtn" class="save-btn">Muat Gambar ke Reader</button>
+        <button id="closeModalBtn" class="close-btn">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
