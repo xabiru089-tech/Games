@@ -3,63 +3,98 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Comic Reader - Long Strip Studio</title>
+  <title>Smart Hub - All-in-One Utility Web</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Top Navigation Bar -->
-  <header class="reader-header" id="header">
-    <div class="nav-left">
-      <a href="#" class="back-btn">← Katalog</a>
-      <h1 class="comic-title" id="comicTitle">Martial Peak</h1>
-    </div>
-    <div class="nav-right">
-      <select id="chapterSelect" class="chapter-dropdown">
-        <option value="1">Chapter 01 (RAW / ID)</option>
-        <option value="2">Chapter 02 (RAW / ID)</option>
-      </select>
-      <button id="openAdminBtn" class="admin-btn">⚙️ Tambah Raw/Link</button>
-    </div>
-  </header>
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar">
+    <div class="brand">⚡ SmartHub</div>
+    <button class="nav-btn active" onclick="switchTab('calc-tab')">🧮 Super Calc</button>
+    <button class="nav-btn" onclick="switchTab('music-tab')">🎵 Media Player</button>
+    <button class="nav-btn" onclick="switchTab('todo-tab')">📝 Task & Notes</button>
+    <button class="nav-btn" onclick="switchTab('timer-tab')">⏱️ Timer Focus</button>
+  </aside>
 
-  <!-- Container Reader Gambar Memanjang ke Bawah -->
-  <main class="reader-container">
-    <div id="imageWrapper" class="image-wrapper">
-      <!-- Gambar komik akan dimuat di sini via JS -->
-    </div>
+  <!-- Main Content Dashboard -->
+  <main class="content">
+
+    <!-- TAB 1: KALKULATOR SUPER -->
+    <section id="calc-tab" class="tab-content active">
+      <div class="card">
+        <h2>🧮 Super Calculator</h2>
+        <div class="calc-display">
+          <input type="text" id="calcScreen" readonly value="0">
+        </div>
+        <div class="calc-buttons">
+          <button onclick="clearCalc()" class="btn-alt">C</button>
+          <button onclick="appendCalc('(')">(</button>
+          <button onclick="appendCalc(')')">)</button>
+          <button onclick="appendCalc('/')" class="btn-op">÷</button>
+          
+          <button onclick="appendCalc('7')">7</button>
+          <button onclick="appendCalc('8')">8</button>
+          <button onclick="appendCalc('9')">9</button>
+          <button onclick="appendCalc('*')" class="btn-op">×</button>
+          
+          <button onclick="appendCalc('4')">4</button>
+          <button onclick="appendCalc('5')">5</button>
+          <button onclick="appendCalc('6')">6</button>
+          <button onclick="appendCalc('-')" class="btn-op">-</button>
+          
+          <button onclick="appendCalc('1')">1</button>
+          <button onclick="appendCalc('2')">2</button>
+          <button onclick="appendCalc('3')">3</button>
+          <button onclick="appendCalc('+')" class="btn-op">+</button>
+          
+          <button onclick="appendCalc('0')">0</button>
+          <button onclick="appendCalc('.')">.</button>
+          <button onclick="calculateResult()" class="btn-action">=</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: PEMUTAR MUSIK & AMBIENT SOUND -->
+    <section id="music-tab" class="tab-content">
+      <div class="card">
+        <h2>🎵 Local Music Player</h2>
+        <input type="file" id="audioInput" accept="audio/*" class="file-input">
+        <div class="player-controls">
+          <p id="songTitle">Belum ada lagu dipilih</p>
+          <audio id="audioPlayer" controls style="width: 100%; margin-top: 10px;"></audio>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: CATATAN & TO-DO LIST -->
+    <section id="todo-tab" class="tab-content">
+      <div class="card">
+        <h2>📝 Fast Notes & Tasks</h2>
+        <div class="input-group">
+          <input type="text" id="taskInput" placeholder="Tambah tugas baru...">
+          <button onclick="addTask()" class="btn-action">Tambah</button>
+        </div>
+        <ul id="taskList" class="task-list"></ul>
+      </div>
+    </section>
+
+    <!-- TAB 4: TIMER FOCUS (POMODORO) -->
+    <section id="timer-tab" class="tab-content">
+      <div class="card text-center">
+        <h2>⏱️ Focus Timer</h2>
+        <div class="timer-display" id="timerDisplay">25:00</div>
+        <div class="timer-controls">
+          <button onclick="startTimer()" class="btn-action">Start</button>
+          <button onclick="pauseTimer()" class="btn-alt">Pause</button>
+          <button onclick="resetTimer()" class="btn-alt">Reset</button>
+        </div>
+      </div>
+    </section>
+
   </main>
 
-  <!-- Bottom Navigation Bar -->
-  <footer class="reader-footer" id="footer">
-    <button id="prevBtn" class="nav-btn">← Ch. Sebelumnya</button>
-    <span id="chapterIndicator" class="chapter-info">Chapter 1</span>
-    <button id="nextBtn" class="nav-btn">Ch. Selanjutnya →</button>
-  </footer>
-
-  <!-- Modal Admin / Input Link Gambar RAW -->
-  <div id="adminModal" class="modal">
-    <div class="modal-content">
-      <h2>Input Chapter / Gambar RAW</h2>
-      <p class="modal-sub">Tempel link URL gambar per baris (satu link gambar per baris):</p>
-      
-      <label for="inputTitle">Judul Komik:</label>
-      <input type="text" id="inputTitle" value="Martial Peak">
-
-      <label for="inputChapter">Nomor Chapter:</label>
-      <input type="number" id="inputChapter" value="1">
-
-      <label for="inputUrls">Daftar URL Gambar RAW:</label>
-      <textarea id="inputUrls" rows="8" placeholder="https://example.com/page1.jpg&#10;https://example.com/page2.jpg&#10;https://example.com/page3.jpg"></textarea>
-
-      <div class="modal-actions">
-        <button id="saveChapterBtn" class="save-btn">Muat Gambar ke Reader</button>
-        <button id="closeModalBtn" class="close-btn">Batal</button>
-      </div>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
+  <script src="app.js"></script>
 </body>
 
 </html>
